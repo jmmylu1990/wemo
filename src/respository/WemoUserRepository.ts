@@ -29,4 +29,9 @@ export class WemoUserRepository {
       .whereInIds(ids)
       .execute();
   }
+
+  async createUser(userData: Partial<WemoUser>): Promise<WemoUser> {
+    const user = this.repository.create(userData);
+    return await this.repository.save(user);
+  }
 }
