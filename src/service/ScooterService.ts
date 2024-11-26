@@ -11,4 +11,17 @@ export class ScooterService {
   ): Promise<Scooter[]> {
     return this.scooterRepository.findScootersNearby(latitude, longitude);
   }
+
+  async updateStatus(
+    scooterId: number,
+    status: number,
+    userId: number,
+  ): Promise<boolean> {
+    const updateResult = await this.scooterRepository.updateStatus(
+      scooterId,
+      status,
+      userId,
+    );
+    return updateResult.valueOf();
+  }
 }

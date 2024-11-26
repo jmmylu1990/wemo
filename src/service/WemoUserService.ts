@@ -3,11 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { WemoUser } from '../entity/WemoUser';
 import { BadRequestException } from '@nestjs/common';
 import { KycService } from './KycService';
+import { ScooterService } from './ScooterService';
 @Injectable()
 export class WemoUserService {
   constructor(
     private readonly wemoUserRepository: WemoUserRepository,
-    private readonly kycService: KycService, // 注入 KycService
+    private readonly kycService: KycService,
+    private readonly scooterService: ScooterService,
   ) {}
 
   async registerUser(user: WemoUser): Promise<WemoUser> {
@@ -38,5 +40,9 @@ export class WemoUserService {
     // 新會員註冊
     const newUser = this.wemoUserRepository.create(user);
     return this.wemoUserRepository.save(newUser);
+  }
+
+  async rentScooter(scooter: number, status: number, userId: number) {
+    await this.scooterService.updateStatus(scooter, status, userId);
   }
 }

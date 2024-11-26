@@ -16,8 +16,11 @@ export class Scooter {
   usage_count?: number;
   @Column()
   model: string;
+  @Column({ nullable: true })
+  current_renter?: number;
+  // 'available' | 'rented' | 'maintenance' | 'relocated' | 'reserved';
   @Column()
-  status?: 'available' | 'rented' | 'maintenance' | 'relocated' | 'reserved';
+  status: number;
   @Column()
   last_maintenance?: Date;
   @Column()

@@ -1,6 +1,7 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Patch, Query, Body, Headers } from '@nestjs/common';
 import { ScooterService } from '../service/ScooterService';
 import { Scooter } from '../entity/Scooter';
+import { UpdateScooterStatusDTO } from '../model/UpdateScooterStatusDTO';
 
 @Controller('scooters/api')
 export class ScooterController {
