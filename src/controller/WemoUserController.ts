@@ -1,18 +1,17 @@
 import { Body, Controller } from '@nestjs/common';
 import { WemoUserService } from '../service/WemoUserService';
-import { Get, Post } from '@nestjs/common';
+import { Post } from '@nestjs/common';
 import { WemoUser } from '../entity/WemoUser';
+
 @Controller('/users/api')
 export class WemoUserController {
   constructor(private readonly wemoUserService: WemoUserService) {}
 
-  @Get('all')
-  async findAll(): Promise<WemoUser[]> {
-    return await this.wemoUserService.findAll();
-  }
-
   @Post('register')
-  async createUser(@Body() userData: Partial<WemoUser>): Promise<WemoUser> {
-    return await this.wemoUserService.createUser(userData);
+  async createUser(
+    @Body() user: WemoUser,
+  ): Promise<WemoUser | { message: string; existingUser: WemoUser }> {
+    console.log(user);
+    return await this.wemoUserService.registerUser(user);
   }
 }

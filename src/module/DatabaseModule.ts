@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WemoUser } from '../entity/WemoUser';
+import { Scooter } from '../entity/Scooter';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { WemoUser } from '../entity/WemoUser';
       username: 'admin',
       password: '12345',
       database: 'postgres',
-      entities: [WemoUser], // 動態載入所有實體
+      entities: [WemoUser, Scooter],
       synchronize: false,
     }),
   ],

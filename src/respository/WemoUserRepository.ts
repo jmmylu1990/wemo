@@ -10,28 +10,17 @@ export class WemoUserRepository {
     private readonly repository: Repository<WemoUser>,
   ) {}
 
-  async findAll(): Promise<WemoUser[]> {
-    return this.repository.find();
+  findByIdCardNumber(idCardNumber: string): Promise<WemoUser | null> {
+    return this.repository.findOne({ where: { id_card_number: idCardNumber } });
   }
 
-  async findByUsername(username: string): Promise<WemoUser | null> {
-    return this.repository
-      .createQueryBuilder('user')
-      .where('user.username = :username', { username })
-      .getOne();
+  //建立有資料的實體，尚未輸入DB
+  create(user: WemoUser): WemoUser {
+    return this.repository.create(user);
   }
 
-  async updateUserStatus(ids: number[], status: boolean): Promise<void> {
-    await this.repository
-      .createQueryBuilder()
-      .update(WemoUser)
-      .set({ is_verified: status })
-      .whereInIds(ids)
-      .execute();
-  }
-
-  async createUser(userData: Partial<WemoUser>): Promise<WemoUser> {
-    const user = this.repository.create(userData);
-    return await this.repository.save(user);
+  //直接輸入DB
+  save(user: WemoUser): Promise<WemoUser> {
+    return this.repository.save(user);
   }
 }
