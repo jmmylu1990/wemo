@@ -3,53 +3,48 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
 @Unique(['scooter_number'])
 export class Scooter {
   @PrimaryGeneratedColumn()
-  id: number;
+  private id: number;
   @Column()
-  scooter_number: string;
+  private scooter_number: string;
   @Column()
-  battery_serial_number?: string;
+  private battery_serial_number: string;
   @Column()
-  mileage?: number;
+  private mileage: number;
   @Column()
-  current_mileage?: number;
+  private usage_count: number;
   @Column()
-  usage_count?: number;
+  private model: string;
   @Column()
-  model: string;
-  @Column({ nullable: true })
-  current_renter?: number;
-  // 'available' | 'rented' | 'maintenance' | 'relocated' | 'reserved';
+  private status: number;
   @Column()
-  status: number;
+  private last_maintenance: Date;
   @Column()
-  last_maintenance?: Date;
+  private maintenance_required?: boolean;
   @Column()
-  maintenance_required?: boolean;
+  private latitude: number;
   @Column()
-  latitude?: number;
+  private longitude: number;
   @Column()
-  longitude?: number;
-  @Column()
-  updated_by_system: string;
+  private updated_by_system: string;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
     insert: false,
     update: false,
   })
-  created_at: Date;
+  private created_at: Date;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
     insert: false,
     update: false,
   })
-  updated_at: Date;
+  private updated_at: Date;
   @Column({
     type: 'varchar',
     length: 20,
-    default: 'none',
+    default: 0,
     nullable: true,
   })
-  rental_restriction?: 'none' | 'no_rent' | 'no_return';
+  private rental_restriction: number;
 }

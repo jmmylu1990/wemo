@@ -15,7 +15,7 @@ export class WemoUserService {
   async registerUser(user: WemoUser): Promise<WemoUser> {
     // 檢查是否有重複的身份證字號
     const existingUser = await this.wemoUserRepository.findByIdCardNumber(
-      user.id_card_number,
+      user.getIdCardNumber,
     );
 
     console.log(existingUser);
@@ -28,7 +28,7 @@ export class WemoUserService {
 
     //驗證身分證是否有駕照
     const isLicenseValid = this.kycService.verifyDriversLicense(
-      user.id_card_number,
+      user.getIdCardNumber,
     );
 
     if (!isLicenseValid) {

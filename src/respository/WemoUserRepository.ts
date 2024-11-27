@@ -11,7 +11,8 @@ export class WemoUserRepository {
   ) {}
 
   findByIdCardNumber(idCardNumber: string): Promise<WemoUser | null> {
-    return this.repository.findOne({ where: { id_card_number: idCardNumber } });
+    return this.repository.findOne({
+      where: { getIdCardNumber: idCardNumber } });
   }
 
   //建立有資料的實體，尚未輸入DB

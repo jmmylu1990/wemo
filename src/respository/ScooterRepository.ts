@@ -12,7 +12,8 @@ export class ScooterRepository {
   async findScootersNearby(
     latitude: number,
     longitude: number,
-    radius: number = 500,
+    status: number,
+    radius: number,
   ): Promise<Scooter[]> {
     return this.scooterRepository
       .createQueryBuilder('scooter')
@@ -25,8 +26,9 @@ export class ScooterRepository {
           )
         ) <= :radius`,
       )
-      .andWhere('scooter.status = :status', { status: 'available' })
-      .setParameters({ latitude, longitude, radius })
+      .andWhere('scooter.status = :status')
+      .orderBy('scooter.id', 'ASC') // 單獨指定排序條件
+      .setParameters({ latitude, longitude, radius, status })
       .getMany();
   }
 

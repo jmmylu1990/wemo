@@ -1,7 +1,6 @@
-import { Controller, Get, Patch, Query, Body, Headers } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ScooterService } from '../service/ScooterService';
 import { Scooter } from '../entity/Scooter';
-import { UpdateScooterStatusDTO } from '../model/UpdateScooterStatusDTO';
 
 @Controller('scooters/api')
 export class ScooterController {
@@ -11,7 +10,14 @@ export class ScooterController {
   async findNearbyScooters(
     @Query('latitude') latitude: number,
     @Query('longitude') longitude: number,
+    @Query('status') status: number,
+    @Query('radius') redius: number,
   ): Promise<Scooter[]> {
-    return this.scooterService.findScootersNearby(latitude, longitude);
+    return this.scooterService.findScootersNearby(
+      latitude,
+      longitude,
+      status,
+      redius,
+    );
   }
 }

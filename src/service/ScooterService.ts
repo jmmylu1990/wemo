@@ -8,8 +8,15 @@ export class ScooterService {
   async findScootersNearby(
     latitude: number,
     longitude: number,
+    status: number,
+    radius: number,
   ): Promise<Scooter[]> {
-    return this.scooterRepository.findScootersNearby(latitude, longitude);
+    return this.scooterRepository.findScootersNearby(
+      latitude,
+      longitude,
+      status,
+      radius,
+    );
   }
 
   async updateStatus(
