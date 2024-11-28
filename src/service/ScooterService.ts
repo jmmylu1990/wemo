@@ -19,16 +19,21 @@ export class ScooterService {
     );
   }
 
-  async updateStatus(
+  async rentScooter(
     scooterId: number,
     status: number,
     userId: number,
   ): Promise<boolean> {
-    const updateResult = await this.scooterRepository.updateStatus(
+    const updateResult = await this.scooterRepository.rentScooter(
       scooterId,
       status,
       userId,
     );
-    return updateResult.valueOf();
+    console.log(updateResult);
+    return updateResult;
+  }
+
+  async getScooterById(scooterId: number): Promise<Scooter | null> {
+    return await this.scooterRepository.findOne(scooterId);
   }
 }

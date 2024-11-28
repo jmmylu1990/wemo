@@ -32,18 +32,26 @@ export class ScooterRepository {
       .getMany();
   }
 
-  async updateStatus(
+  async rentScooter(
     scooterId: number,
     scooterStatus: number,
     userId: number,
   ): Promise<boolean> {
-    const updateResult = await this.scooterRepository.update(
-      { id: scooterId },
-      {
+    const updateResult = await this.scooterRepository
+      .createQueryBuilder()
+      .update(Scooter)
+      .set({
         status: scooterStatus,
-        current_renter: userId, // 更新為動態的 `userId`
-      },
-    );
-    return updateResult.affected > 0;
+        current_renter: userId,
+      })
+      .where('id = :scooterId AND status = 0', { scooterId })
+      .execute();
+    return updateResult.affected != 0;
+  }
+
+  async findOne(scooterId: number): Promise<Scooter | null> {
+    return this.scooterRepository.findOne({
+      where: { id: scooterId },
+    });
   }
 }

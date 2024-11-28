@@ -3,16 +3,16 @@ import { WemoUserService } from '../service/WemoUserService';
 import { Post } from '@nestjs/common';
 import { WemoUser } from '../entity/WemoUser';
 import { UpdateScooterStatusDTO } from '../model/UpdateScooterStatusDTO';
+import { ResponseDTO } from '../model/ResponseDto';
 
 @Controller('/users/api')
 export class WemoUserController {
   constructor(private readonly wemoUserService: WemoUserService) {}
 
   @Post('register')
-  async createUser(
+  async register(
     @Body() user: WemoUser,
   ): Promise<WemoUser | { message: string; existingUser: WemoUser }> {
-    console.log(user);
     return await this.wemoUserService.registerUser(user);
   }
 
@@ -20,9 +20,8 @@ export class WemoUserController {
   async rentScooter(
     @Body() updateScooterStatusDTO: UpdateScooterStatusDTO,
     @Headers('user-id') userId: number,
-  ): Promise<boolean> {
+  ): Promise<ResponseDTO> {
     const { scooterId, status } = updateScooterStatusDTO;
-    this.wemoUserService.rentScooter(scooterId, status, userId);
-    return true;
+    return await this.wemoUserService.rentScooter(scooterId, status, userId);
   }
 }

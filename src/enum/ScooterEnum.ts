@@ -1,7 +1,7 @@
 export enum Status {
-  Available = 0, //available
-  Rented = 1, //rented
-  Maintenance = 2, //maintenance,
-  Relocated = 3, //relocated,
-  Reserved = 4, //Reserved
+  Available = 0,
+  Rented = 1,
+  Maintenance = 2,
+  Relocated = 3,
+  Reserved = 4,
 }

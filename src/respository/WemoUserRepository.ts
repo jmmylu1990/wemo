@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { WemoUser } from '../entity/WemoUser';
+import { WemoUser } from '../wemoUser/entity/WemoUser';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
@@ -12,7 +12,8 @@ export class WemoUserRepository {
 
   findByIdCardNumber(idCardNumber: string): Promise<WemoUser | null> {
     return this.repository.findOne({
-      where: { getIdCardNumber: idCardNumber } });
+      where: { id_card_number: idCardNumber },
+    });
   }
 
   //建立有資料的實體，尚未輸入DB

@@ -11,4 +11,4 @@ import { ScooterRepository } from '../respository/ScooterRepository';
   controllers: [ScooterController],
   exports: [ScooterService],
 })
-export class ScooterMoudl {}
+export class ScooterModule {}

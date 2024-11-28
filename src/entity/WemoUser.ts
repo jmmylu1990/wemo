@@ -3,47 +3,47 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'wemo_user' })
 export class WemoUser {
   @PrimaryGeneratedColumn()
-  private id: number;
+  id: number;
   @Column()
-  private username: string;
+  username: string;
   @Column()
-  private phone_number: string;
+  phone_number: string;
   @Column()
-  private email: string;
+  email: string;
   @Column()
-  private hashed_password: string;
+  hashed_password: string;
   @Column()
-  private gender: string;
+  gender: string;
   @Column()
-  private date_of_birth: Date;
+  date_of_birth: Date;
   @Column()
-  private address: string;
+  address: string;
   @Column()
-  private id_card_number: string;
+  id_card_number: string;
   @Column()
-  private id_card_front: string;
+  id_card_front: string;
   @Column()
-  private id_card_back: string;
+  id_card_back: string;
   @Column()
-  private driver_license_number: string;
+  driver_license_number: string;
   @Column()
-  private driver_license_verified: boolean;
+  driver_license_verified: boolean;
   @Column()
-  private is_verified: boolean;
+  is_verified: boolean;
   @Column()
-  private verification_date: Date;
+  verification_date: Date;
   @Column()
-  private subscription_type: string;
+  subscription_type: string;
   @Column()
-  private subscription_start_date: Date;
+  subscription_start_date: Date;
   @Column()
-  private subscription_end_date: Date;
+  subscription_end_date: Date;
   @Column()
-  private referral_code: string;
+  referral_code: string;
   @Column()
-  private referred_by: string;
+  referred_by: string;
   @Column()
-  private wemo_pass_status: boolean;
+  wemo_pass_status: boolean;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -51,7 +51,7 @@ export class WemoUser {
     update: false,
   })
   @Column()
-  private created_at: Date;
+  created_at: Date;
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
@@ -59,11 +59,7 @@ export class WemoUser {
     update: false,
   })
   @Column()
-  private updated_at: Date;
+  updated_at: Date;
   @Column()
-  private modified_by: number;
-
-  public get getIdCardNumber(): string {
-    return this.id_card_number;
-  }
+  modified_by: number;
 }

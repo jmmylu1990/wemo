@@ -4,21 +4,22 @@ import { WemoUser } from '../entity/WemoUser';
 import { BadRequestException } from '@nestjs/common';
 import { KycService } from './KycService';
 import { ScooterService } from './ScooterService';
+import { DataSource, QueryRunner } from 'typeorm';
+import { ResponseDTO } from '../model/ResponseDto';
 @Injectable()
 export class WemoUserService {
   constructor(
     private readonly wemoUserRepository: WemoUserRepository,
     private readonly kycService: KycService,
     private readonly scooterService: ScooterService,
+    private readonly dataSource: DataSource,
   ) {}
 
-  async registerUser(user: WemoUser): Promise<WemoUser> {
-    // 檢查是否有重複的身份證字號
+  //註冊
+  public async registerUser(user: WemoUser): Promise<WemoUser> {
     const existingUser = await this.wemoUserRepository.findByIdCardNumber(
-      user.getIdCardNumber,
+      user.id_card_number,
     );
-
-    console.log(existingUser);
     if (existingUser) {
       throw new BadRequestException({
         message: '會員已註冊',
@@ -26,9 +27,8 @@ export class WemoUserService {
       });
     }
 
-    //驗證身分證是否有駕照
-    const isLicenseValid = this.kycService.verifyDriversLicense(
-      user.getIdCardNumber,
+    const isLicenseValid = await this.kycService.verifyDriversLicense(
+      user.id_card_number,
     );
 
     if (!isLicenseValid) {
@@ -37,12 +37,41 @@ export class WemoUserService {
       });
     }
 
-    // 新會員註冊
     const newUser = this.wemoUserRepository.create(user);
-    return this.wemoUserRepository.save(newUser);
+    const save = await this.wemoUserRepository.save(newUser);
+    return save;
   }
 
-  async rentScooter(scooter: number, status: number, userId: number) {
-    await this.scooterService.updateStatus(scooter, status, userId);
+  //租車
+  public async rentScooter(
+    scooterId: number,
+    status: number,
+    userId: number,
+  ): Promise<ResponseDTO> {
+    const queryRunner: QueryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    const rented = await this.scooterService.rentScooter(
+      scooterId,
+      status,
+      userId,
+    );
+    try {
+      if (!rented) {
+        throw new BadRequestException({
+          message: false,
+          reason: '該車輛當前處於不可用狀態或已被租用',
+          scooterId: scooterId,
+        });
+      }
+      await queryRunner.commitTransaction();
+      return new ResponseDTO(true, '租借成功', scooterId);
+    } catch (err) {
+      console.log(err);
+      await queryRunner.rollbackTransaction();
+      return new ResponseDTO(false, '租用失敗', scooterId);
+    } finally {
+      await queryRunner.release();
+    }
   }
 }
