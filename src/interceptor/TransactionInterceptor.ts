@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { DataSource } from 'typeorm';
 import { catchError, finalize } from 'rxjs/operators';
 
-//待修正
 @Injectable()
 export class TransactionInterceptor implements NestInterceptor {
   constructor(private readonly dataSource: DataSource) {}

@@ -32,6 +32,7 @@ export class ScooterRepository {
       .getMany();
   }
 
+  //租車
   async rentScooter(
     scooterId: number,
     scooterStatus: number,

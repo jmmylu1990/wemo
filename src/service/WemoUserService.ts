@@ -5,7 +5,7 @@ import { BadRequestException } from '@nestjs/common';
 import { KycService } from './KycService';
 import { ScooterService } from './ScooterService';
 import { DataSource, QueryRunner } from 'typeorm';
-import { ResponseDTO } from '../model/ResponseDto';
+import { ResponseDTO } from '../model/ResponseDTO';
 @Injectable()
 export class WemoUserService {
   constructor(
@@ -69,7 +69,7 @@ export class WemoUserService {
     } catch (err) {
       console.log(err);
       await queryRunner.rollbackTransaction();
-      return new ResponseDTO(false, '租用失敗', scooterId);
+      return new ResponseDTO(false, '租借失敗', scooterId);
     } finally {
       await queryRunner.release();
     }

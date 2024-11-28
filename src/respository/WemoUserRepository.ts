@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { WemoUser } from '../wemoUser/entity/WemoUser';
+import { WemoUser } from '../entity/WemoUser';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 

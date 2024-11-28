@@ -3,7 +3,7 @@ import { WemoUserService } from '../service/WemoUserService';
 import { Post } from '@nestjs/common';
 import { WemoUser } from '../entity/WemoUser';
 import { UpdateScooterStatusDTO } from '../model/UpdateScooterStatusDTO';
-import { ResponseDTO } from '../model/ResponseDto';
+import { ResponseDTO } from '../model/ResponseDTO';
 
 @Controller('/users/api')
 export class WemoUserController {
