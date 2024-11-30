@@ -62,4 +62,6 @@ export class WemoUser {
   updated_at: Date;
   @Column()
   modified_by: number;
+  @Column()
+  is_renting: boolean;
 }

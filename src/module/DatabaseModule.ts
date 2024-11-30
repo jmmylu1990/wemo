@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WemoUser } from '../entity/WemoUser';
 import { Scooter } from '../entity/Scooter';
+import { Rent } from '../entity/Rent';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { Scooter } from '../entity/Scooter';
       username: 'admin',
       password: '12345',
       database: 'postgres',
-      entities: [WemoUser, Scooter],
+      entities: [WemoUser, Scooter, Rent],
       synchronize: false,
     }),
   ],

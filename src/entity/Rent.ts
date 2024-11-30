@@ -17,9 +17,19 @@ export class Rent {
   scooterId: number;
   @Column({ name: 'credit_card_id' })
   creditCardId: number;
-  @Column({ name: 'start_time', type: 'timestamp' })
+  @Column({
+    name: 'start_time',
+    type: 'timestamp',
+    insert: false,
+    update: false,
+  })
   startTime: Date;
-  @Column({ name: 'end_time', type: 'timestamp' })
+  @Column({
+    name: 'end_time',
+    type: 'timestamp',
+    insert: false,
+    update: false,
+  })
   endTime: Date;
   @Column({ name: 'distance' })
   distance: number;

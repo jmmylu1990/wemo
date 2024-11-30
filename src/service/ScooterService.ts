@@ -29,7 +29,6 @@ export class ScooterService {
       status,
       userId,
     );
-    console.log(updateResult);
     return updateResult;
   }
 

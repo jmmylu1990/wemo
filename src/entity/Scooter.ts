@@ -3,29 +3,32 @@ import { Entity, Column, PrimaryGeneratedColumn, Unique } from 'typeorm';
 @Unique(['scooter_number'])
 export class Scooter {
   @PrimaryGeneratedColumn()
-  private id: number;
+  id: number;
   @Column()
-  private scooter_number: string;
+  scooter_number: string;
   @Column()
-  private battery_serial_number: string;
+  battery_serial_number: string;
   @Column()
-  private mileage: number;
+  mileage: number;
   @Column()
-  private usage_count: number;
+  usage_count: number;
   @Column()
-  private model: string;
+  model: string;
   @Column()
-  private status: number;
+  status: number;
   @Column()
-  private last_maintenance: Date;
+  last_maintenance: Date;
   @Column()
-  private maintenance_required?: boolean;
+  maintenance_required?: boolean;
   @Column()
-  private latitude: number;
+  latitude: number;
   @Column()
-  private longitude: number;
+  longitude: number;
   @Column()
-  private updated_by_system: string;
+  updated_by_system: string;
+  @Column()
+  current_renter: number;
+
   @Column({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',

@@ -15,15 +15,15 @@ export class RentRepository {
     scooterId: number,
     isActive: boolean,
     totalPrice: number,
-  ) {
-    const rent = this.repository.create({
-      userId,
-      scooterId,
-      isActive,
-      totalPrice,
-    });
-
-    // 保存到資料庫
-    return this.repository.save(rent);
+  ): Promise<Rent> {
+    {
+      const rent = this.repository.create({
+        userId,
+        scooterId,
+        isActive,
+        totalPrice,
+      });
+      return this.repository.save(rent);
+    }
   }
 }
